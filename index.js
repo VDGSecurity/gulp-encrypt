@@ -45,14 +45,14 @@ module.exports = function (param) {
       var key = param.key;
 
       if (!param.decrypt) {
-        var cipher = crypto.createCipher('aes-256-cbc', key);
-        cipher.update(contents, 'utf8', 'base64');
-        contents = cipher.final('base64')
+        var cipher = crypto.createCipher('aes-256-ctr', key);
+        contents = cipher.update(contents, 'utf8', 'hex');
+        contents += cipher.final('hex')
       }
       else {
-        var decipher = crypto.createDecipher('aes-256-cbc', key);
-        decipher.update(contents, 'base64', 'utf8');
-        contents = decipher.final('utf8');
+        var decipher = crypto.createDecipher('aes-256-ctr', key);
+        contents = decipher.update(contents, 'hex', 'utf8');
+        contents += decipher.final('utf8');
       }
       file.contents = new Buffer(contents);
 

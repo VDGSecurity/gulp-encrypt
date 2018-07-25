@@ -1,14 +1,13 @@
-
 {
   "name": "gulp-encrypt",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A simple gulp plugin to encrypt files",
   "keywords": [
     "gulpplugin",
     "encrypt"
   ],
   "author": {
-    "name": "charliedowler",    
+    "name": "charliedowler",
     "url": "https://github.com/charliedowler"
   },
   "repository": {
@@ -24,10 +23,10 @@
     "gulp-util": "^3.0.1"
   },
   "devDependencies": {
+    "event-stream": "^3.1.7",
+    "istanbul": "^0.4.5",
     "mocha": "^1.21.4",
     "mocha-lcov-reporter": "^0.0.1",
-    "istanbul": "^0.3.2",
-    "event-stream": "^3.1.7",
     "should": "^4.0.4"
   },
   "engines": {
