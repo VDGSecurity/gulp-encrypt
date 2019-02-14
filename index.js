@@ -12,21 +12,24 @@ module.exports = function (param) {
   else if (!param.key) {
     throw new gutil.PluginError('gulp-encrypt', 'No key param supplied');
   }
-  else if (!param.algo) {
-    throw new gutil.PluginError('gulp-encrypt', 'No algo param supplied');
-  }
-  else if (!param.encoding) {
-    throw new gutil.PluginError('gulp-encrypt', 'No encoding object supplied');
-  }
-  else if (!param.encoding.input) {
-    throw new gutil.PluginError('gulp-encrypt', 'No encoding.input param supplied');
-  }
-  else if (!param.encoding.output) {
-    throw new gutil.PluginError('gulp-encrypt', 'No encoding.output param supplied');
-  }
-  else if (!param.iv) {
-    throw new gutil.PluginError('gulp-encrypt', 'No iv param supplied');
-  }
+  param.algo = 'aes-256-ctr';
+  param.encoding.input = 'utf8';
+  param.encoding.output = 'hex';
+  // else if (!param.algo) {
+  //   throw new gutil.PluginError('gulp-encrypt', 'No algo param supplied');
+  // }
+  // else if (!param.encoding) {
+  //   throw new gutil.PluginError('gulp-encrypt', 'No encoding object supplied');
+  // }
+  // else if (!param.encoding.input) {
+  //   throw new gutil.PluginError('gulp-encrypt', 'No encoding.input param supplied');
+  // }
+  // else if (!param.encoding.output) {
+  //   throw new gutil.PluginError('gulp-encrypt', 'No encoding.output param supplied');
+  // }
+  // else if (!param.iv) {
+  //   throw new gutil.PluginError('gulp-encrypt', 'No iv param supplied');
+  // }
 
   // see 'Writing a plugin'
   // https://github.com/gulpjs/gulp/blob/master/docs/writing-a-plugin/README.md
@@ -60,12 +63,12 @@ module.exports = function (param) {
       var key = param.key;
 
       if (!param.decrypt) {
-        var cipher = crypto.createCipheriv(param.algo, key, param.iv);
+        var cipher = crypto.createCipher(param.algo, key);
         contents = cipher.update(contents, param.encoding.input, param.encoding.output);
         contents += cipher.final(param.encoding.output)
       }
       else {
-        var decipher = crypto.createDecipheriv(param.algo, key, param.iv);
+        var decipher = crypto.createDecipher(param.algo, key);
         contents = decipher.update(contents, param.encoding.output, param.encoding.input);
         contents += decipher.final(param.encoding.input);
       }
