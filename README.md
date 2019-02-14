@@ -7,7 +7,7 @@
 First, install `gulp-encrypt` as a development dependency:
 
 ```shell
-npm install --save-dev https://github.com/VDGSecurity/gulp-encrypt.git#feat/cipher-suite-options
+npm install --save-dev https://github.com/VDGSecurity/gulp-encrypt.git#master
 ```
 
 Then, add it to your `gulpfile.js`:
