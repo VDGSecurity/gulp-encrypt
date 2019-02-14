@@ -13,6 +13,7 @@ module.exports = function (param) {
     throw new gutil.PluginError('gulp-encrypt', 'No key param supplied');
   }
   param.algo = 'aes-256-ctr';
+  param.encoding = {};
   param.encoding.input = 'utf8';
   param.encoding.output = 'hex';
   // else if (!param.algo) {
