@@ -1,6 +1,6 @@
 {
   "name": "gulp-encrypt",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A simple gulp plugin to encrypt files",
   "keywords": [
     "gulpplugin",

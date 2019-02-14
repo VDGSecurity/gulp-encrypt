@@ -36,10 +36,17 @@ describe('gulp-encrypt', function () {
 		});
 
 		var stream = gulpEncrypt({
-			key: 'S3cr3tK3y'
+			key: 'b50F96D52IxLMT3V',
+			decrypt: false,
+			algo: 'aes-128-ctr',
+			encoding: {
+				input: 'utf8',
+				output: 'hex'
+			},
+			iv: 'rnzl7lxBXnJvYdcx'
 		});
 
-		stream.on('error', function(err) {
+		stream.on('error', function (err) {
 			should.exist(err);
 			done(err);
 		});
@@ -67,11 +74,17 @@ describe('gulp-encrypt', function () {
 		});
 
 		var stream = gulpEncrypt({
-			key: 'S3cr3tK3y',
-			decrypt: true
+			key: 'b50F96D52IxLMT3V',
+			decrypt: true,
+			algo: 'aes-128-ctr',
+			encoding: {
+				input: 'utf8',
+				output: 'hex'
+			},
+			iv: 'rnzl7lxBXnJvYdcx'
 		});
 
-		stream.on('error', function(err) {
+		stream.on('error', function (err) {
 			should.exist(err);
 			done(err);
 		});
@@ -98,16 +111,23 @@ describe('gulp-encrypt', function () {
 		});
 
 		var stream = gulpEncrypt({
-			key: 'S3cr3tK3y'
+			key: 'b50F96D52IxLMT3V',
+			decrypt: false,
+			algo: 'aes-128-ctr',
+			encoding: {
+				input: 'utf8',
+				output: 'hex'
+			},
+			iv: 'rnzl7lxBXnJvYdcx'
 		});
 
-		stream.on('error', function(err) {
+		stream.on('error', function (err) {
 			should.exist(err);
 			done();
 		});
 
 		stream.on('data', function (newFile) {
-			newFile.contents.pipe(es.wait(function(err, data) {
+			newFile.contents.pipe(es.wait(function (err, data) {
 				done(err);
 			}));
 		});

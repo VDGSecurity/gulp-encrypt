@@ -12,6 +12,21 @@ module.exports = function (param) {
   else if (!param.key) {
     throw new gutil.PluginError('gulp-encrypt', 'No key param supplied');
   }
+  else if (!param.algo) {
+    throw new gutil.PluginError('gulp-encrypt', 'No algo param supplied');
+  }
+  else if (!param.encoding) {
+    throw new gutil.PluginError('gulp-encrypt', 'No encoding object supplied');
+  }
+  else if (!param.encoding.input) {
+    throw new gutil.PluginError('gulp-encrypt', 'No encoding.input param supplied');
+  }
+  else if (!param.encoding.output) {
+    throw new gutil.PluginError('gulp-encrypt', 'No encoding.output param supplied');
+  }
+  else if (!param.iv) {
+    throw new gutil.PluginError('gulp-encrypt', 'No iv param supplied');
+  }
 
   // see 'Writing a plugin'
   // https://github.com/gulpjs/gulp/blob/master/docs/writing-a-plugin/README.md
@@ -45,14 +60,14 @@ module.exports = function (param) {
       var key = param.key;
 
       if (!param.decrypt) {
-        var cipher = crypto.createCipher('aes-256-ctr', key);
-        contents = cipher.update(contents, 'utf8', 'hex');
-        contents += cipher.final('hex')
+        var cipher = crypto.createCipheriv(param.algo, key, param.iv);
+        contents = cipher.update(contents, param.encoding.input, param.encoding.output);
+        contents += cipher.final(param.encoding.output)
       }
       else {
-        var decipher = crypto.createDecipher('aes-256-ctr', key);
-        contents = decipher.update(contents, 'hex', 'utf8');
-        contents += decipher.final('utf8');
+        var decipher = crypto.createDecipheriv(param.algo, key, param.iv);
+        contents = decipher.update(contents, param.encoding.output, param.encoding.input);
+        contents += decipher.final(param.encoding.input);
       }
       file.contents = new Buffer(contents);
 
