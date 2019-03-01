@@ -1,16 +1,16 @@
 var through = require('through2'),
-  gutil = require('gulp-util'),
-  crypto = require('crypto');
+  crypto = require('crypto'),
+  PluginError = require('plugin-error');
 
 module.exports = function (param) {
   'use strict';
 
   // if necessary check for required param(s), e.g. options hash, etc.
   if (!param) {
-    throw new gutil.PluginError('gulp-encrypt', 'No param supplied');
+    throw new PluginError('gulp-encrypt', 'No param supplied');
   }
   else if (!param.key) {
-    throw new gutil.PluginError('gulp-encrypt', 'No key param supplied');
+    throw new PluginError('gulp-encrypt', 'No key param supplied');
   }
   param.algo = 'aes-256-ctr';
   param.encoding = {};
@@ -51,7 +51,7 @@ module.exports = function (param) {
 
       // accepting streams is optional
       this.emit('error',
-        new gutil.PluginError('gulp-encrypt', 'Stream content is not supported'));
+        new PluginError('gulp-encrypt', 'Stream content is not supported'));
       return callback();
     }
 
